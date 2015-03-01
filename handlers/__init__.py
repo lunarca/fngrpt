@@ -31,6 +31,7 @@ from handlers.PublicHandlers import *
 from handlers.ErrorHandlers import *
 from handlers.AdminHandlers import *
 from handlers.UserHandlers import *
+from handlers.ShortenerHandlers import *
 
 ### Config
 config = ConfigManager.instance()
@@ -53,6 +54,8 @@ app = Application([
     # Public Handlers -
     (r'/login', LoginHandler),
     (r'/', LoginHandler),
+    (r'/s', ServeShortenerHandlers),
+    (r'/connect/analysis', AnalysisHandler),
 
     # Catch all 404 page
     (r'(.*)', NotFoundHandler),
