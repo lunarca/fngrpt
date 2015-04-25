@@ -46,7 +46,7 @@ logging_levels = {
 class ConfigManager(object):
     ''' Central class which handles any user-controlled settings '''
 
-    def __init__(self, cfg_file='app.cfg'):
+    def __init__(self, cfg_file='fngrpt.cfg'):
         self.filename = cfg_file
         if os.path.exists(cfg_file) and os.path.isfile(cfg_file):
             self.conf = os.path.abspath(cfg_file)
