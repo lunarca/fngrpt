@@ -6,34 +6,37 @@ import re
 
 from sqlalchemy import Column, ForeignKey
 from sqlalchemy.orm import synonym, relationship, backref
-from sqlalchemy.types import Unicode, String
+from sqlalchemy.types import Unicode, String, Integer
 from models import dbsession, Permission
 from models.BaseModels import DatabaseObject, generate_uuid
 
+from libs.ValidationError import ValidationError
+
+
 class Target(DatabaseObject):
-	''' Target: A person targeted for analysis. Usually represented as an email address. '''
-	_email = Column(Unicode(64), nullable=False)
+    ''' Target: A person targeted for analysis. Usually represented as an email address. '''
+    _email = Column(Unicode(64), nullable=False)
 
-	_name = Column(Unicode(32))
-	uuid = Column(String(32), unique=True, default=generate_uuid)
+    _name = Column(Unicode(32))
+    uuid = Column(String(32), unique=True, default=generate_uuid)
 
-	# belongs to Campaign
-	campaign_id = Column(Integer, 
-		ForeignKey('campaign.id'),
-		nullable = False
-	)
+    # belongs to Campaign
+    campaign_id = Column(Integer,
+                         ForeignKey('campaign.id'),
+                         nullable=False
+                         )
 
-	# has many Browsers
-	browsers = relationship("Browser", 
-		backref=backref("target", lazy="select"),
-		cascade="all, delete-orphan"
-	)
+    # has many Browsers
+    browsers = relationship("Browser",
+                            backref=backref("target", lazy="select"),
+                            cascade="all, delete-orphan"
+                            )
 
     @classmethod
     def all(cls):
         return dbsession.query(cls).all()
 
-	@classmethod
+    @classmethod
     def by_id(cls, _id):
         return dbsession.query(cls).filter_by(id=_id).first()
 
@@ -59,14 +62,14 @@ class Target(DatabaseObject):
         return self._email
     @email.setter
     def email(self, value):
-    	if not (self.is_email(value)):
-    		raise ValidationError("'%s' is not a valid email address" % value)
-    	self._email = unicode(value[:64])
-    
+        if not (self.is_email(value)):
+            raise ValidationError("'%s' is not a valid email address" % value)
+        self._email = unicode(value[:64])
+
     def to_dict(self):
-    	return {
-    		'uuid': str(self.uuid),
-    		'email': str(self.email),
-    		'name': str(self.name),
-    	}
+        return {
+            'uuid': str(self.uuid),
+            'email': str(self.email),
+            'name': str(self.name),
+        }
 
