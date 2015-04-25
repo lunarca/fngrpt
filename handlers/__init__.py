@@ -32,6 +32,7 @@ from handlers.ErrorHandlers import *
 from handlers.AdminHandlers import *
 from handlers.UserHandlers import *
 from handlers.ShortenerHandlers import *
+from handlers.CampaignHandlers import *
 
 ### Config
 config = ConfigManager.instance()
@@ -56,6 +57,12 @@ app = Application([
     (r'/', LoginHandler),
     (r'/s', ServeShortenerHandler),
     (r'/connect/analysis', AnalysisHandler),
+
+    # Campaign Handlers -
+    (r'/campaigns', CampaignIndexHandler),
+    # (r'/campaigns/new', CampaignCreationHandler),
+    # (r'/campaigns/edit', CampaignEditHandler),
+
 
     # Catch all 404 page
     (r'(.*)', NotFoundHandler),
