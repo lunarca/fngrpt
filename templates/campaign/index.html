@@ -2,47 +2,53 @@
 
 {% block title %}Campaigns{% end %}
 
+{% block head %}
+<script src="/static/js/pages/campaign/index.js"></script>
+{% end %}
+
 {% block content %}
-<div class="well">
-    {% if campaigns %}
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Created</th>
-                    <th>Name</th>
-                    <th>Endpoint</th>
-                    <th><!-- View Campaign --></th>
-                    <th><!-- Delete Campaign --></th>
-                </tr>
-            </thead>
-            <tbody id="campaign-table">
-                {% for index, campaign in enumerate(campagins) %}
-                    <tr class="campaign-row{{ index }}" data-uuid="{{ campaign.uuid }}">
-                        <td>{{ index + 1 }}</td>
-                        <td>{{ campaign.created }}</td>
-                        <td>{{ campaign.name }}</td>
-                        <td>{{ campaign.endpoint }}</td>
-                        <td>
-                            <a id="view-campaign{{ index }}" class="btn btn-sm btn-info" data-uuid="{{ campaign.uuid }}">
-                                <i class="fa fa-fw fa-arrow-circle-o-right"></i>
-                                View
-                            </a>
-                        </td>
-                        <td>
-                            <a id="delete-campaign{{ index }}" class="btn btn-sm btn-danger" data-uuid="{{ campaign.uuid }}">
-                                <i class="fa fa-fw fa-trash-o"></i>
-                                Delete
-                            </a>
-                        </td>
+<div class="container">
+    <div class="well">
+        {% if campaigns %}
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Created</th>
+                        <th>Name</th>
+                        <th>Endpoint</th>
+                        <th><!-- View Campaign --></th>
+                        <th><!-- Delete Campaign --></th>
                     </tr>
-                {% end %}
-            </tbody>
-        </table>
-    {% else %}
-        <p class="text-center">
-            No campaigns, <a href="/campaigns/new">add some</a>.
-        </p>
-    {% end %}
+                </thead>
+                <tbody id="campaign-table">
+                    {% for index, campaign in enumerate(campaigns) %}
+                        <tr class="campaign-row{{ index }}" data-uuid="{{ campaign.uuid }}">
+                            <td>{{ index + 1 }}</td>
+                            <td>{{ campaign.created }}</td>
+                            <td>{{ campaign.name }}</td>
+                            <td>{{ campaign.endpoint }}</td>
+                            <td>
+                                <a id="view-campaign{{ index }}" class="btn btn-sm btn-info" data-uuid="{{ campaign.uuid }}">
+                                    <i class="fa fa-fw fa-arrow-circle-o-right"></i>
+                                    View
+                                </a>
+                            </td>
+                            <td>
+                                <a id="delete-campaign{{ index }}" class="btn btn-sm btn-danger" data-uuid="{{ campaign.uuid }}">
+                                    <i class="fa fa-fw fa-trash-o"></i>
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    {% end %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-center">
+                No campaigns, <a href="/campaigns/new">add some</a>.
+            </p>
+        {% end %}
+    </div>
 </div>
 {% end %}
