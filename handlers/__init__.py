@@ -54,7 +54,7 @@ app = Application([
     # Public Handlers -
     (r'/login', LoginHandler),
     (r'/', LoginHandler),
-    (r'/s', ServeShortenerHandlers),
+    (r'/s', ServeShortenerHandler),
     (r'/connect/analysis', AnalysisHandler),
 
     # Catch all 404 page
@@ -93,7 +93,8 @@ def start_server():
     ''' Main entry point for the application '''
     sockets = netutil.bind_sockets(config.listen_port)
     if config.use_ssl:
-        server = HTTPServer(app,
+        server = HTTPServer(
+            app,
             ssl_options={
                 "certfile": config.certfile,
                 "keyfile": config.keyfile,

@@ -54,7 +54,7 @@ class Link(DatabaseObject):
 
     def to_dict(self):
         return {
-        'uuid': str(self.uuid),
-        'display_id': str(self.display_id)
+            'uuid': str(self.uuid),
+            'display_id': str(self.display_id)
         }
 
