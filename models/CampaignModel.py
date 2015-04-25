@@ -13,8 +13,9 @@ from models.BaseModels import DatabaseObject, generate_uuid
 
 class Campaign(DatabaseObject):
     _name = Column(Unicode(32), nullable=False)
-    _description = Column(Unicode(254))
+    _description = Column(Unicode(256))
     uuid = Column(String(32), unique=True, default=generate_uuid)
+    _endpoint = Column(Unicode(256))
 
     user_id = Column(Integer,
                      ForeignKey('user.id'),
@@ -26,10 +27,6 @@ class Campaign(DatabaseObject):
                            cascade="all, delete-orphan",
                            )
 
-    endpoint = relationship("Endpoint",
-                            backref=backref("campaign", lazy="select"),
-                            cascade="all, delete-orphan",
-                            )
 
     @classmethod
     def all(cls):
@@ -57,7 +54,15 @@ class Campaign(DatabaseObject):
 
     @description.setter
     def description(self, value):
-        self._description = value[:254]
+        self._description = value[:256]
+
+    @property
+    def endpoint(self):
+        return self._endpoint
+
+    @endpoint.setter
+    def endpoint(self, value):
+        self._endpoint = unicode(value[:256])
 
     def to_dict(self):
         return {
