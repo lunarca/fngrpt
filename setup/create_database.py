@@ -31,3 +31,8 @@ metadata = DatabaseObject.metadata
 # Import your models here
 from models.Permission import Permission
 from models.User import User
+from models.BrowserModel import Browser
+from models.CampaignModel import Campaign
+from models.PluginModel import Plugin
+from models.TargetModel import Target
+from models.LinkModel import Link

@@ -2,6 +2,7 @@
 
 from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.types import String
+from sqlalchemy.orm import relationship, backref
 from models import dbsession
 from models.BaseModels import DatabaseObject, generate_uuid
 
@@ -19,6 +20,7 @@ class Plugin(DatabaseObject):
 
     # belongs_to browser
     browser_id = Column(Integer, ForeignKey('browser.id'), nullable=False)
+    browser = relationship("Browser", backref=backref("plugin", lazy="select"))
 
     @classmethod
     def all(cls):

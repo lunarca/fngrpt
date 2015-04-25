@@ -30,7 +30,7 @@ class Link(DatabaseObject):
 
     display_id = Column(String(8), unique=True, default=generate_dispid)
 
-    endpoint_id = Column(Integer, ForeignKey('endpoint.id'),
+    campaign_id = Column(Integer, ForeignKey('campaign.id'),
                          nullable=False,)
 
     target_id = Column(Integer, ForeignKey('target.id'),

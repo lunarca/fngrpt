@@ -25,12 +25,7 @@ class Target(DatabaseObject):
                          ForeignKey('campaign.id'),
                          nullable=False
                          )
-
-    # has many Browsers
-    browsers = relationship("Browser",
-                            backref=backref("target", lazy="select"),
-                            cascade="all, delete-orphan"
-                            )
+    campaign = relationship("Campaign", backref=backref("targets", lazy="select"))
 
     @classmethod
     def all(cls):

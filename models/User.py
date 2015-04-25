@@ -36,6 +36,8 @@ from models.BaseModels import DatabaseObject
 
 
 ### Constants
+from models.Permission import ADMIN_PERMISSION
+
 ITERATE = 0xbad
 
 

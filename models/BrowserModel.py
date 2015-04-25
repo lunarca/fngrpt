@@ -20,12 +20,7 @@ class Browser(DatabaseObject):
 
     # Belongs to Target
     target_id = Column(Integer, ForeignKey('target.id'), nullable=False)
-
-    # Has many Plugins
-    plugins = relationship("Plugin",
-                           backref=backref("browser", lazy="select"),
-                           cascade="all, delete-orphan"
-                           )
+    target = relationship("Target", backref=backref("browser", lazy="select"))
 
     @classmethod
     def all(cls):

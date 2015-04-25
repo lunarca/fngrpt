@@ -22,11 +22,7 @@ class Campaign(DatabaseObject):
                      nullable=False,
                      )
 
-    targets = relationship("Target",
-                           backref=backref("campaign", lazy="select"),
-                           cascade="all, delete-orphan",
-                           )
-
+    user = relationship("User", backref=backref("campaign", lazy="select"))
 
     @classmethod
     def all(cls):
