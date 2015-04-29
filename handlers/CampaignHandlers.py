@@ -31,7 +31,7 @@ class CampaignCreationHandler(BaseHandler):
 
         try:
             campaign = self.create_campaign(name, endpoint, description, user)
-            self.redirect("/campaigns/management/%s" % campaign.uuid)
+            self.redirect("/campaigns/manage/%s" % campaign.uuid)
         except ValidationError as error:
             self._render_page(errors=str(error))
 
@@ -59,24 +59,41 @@ class CampaignManagementHandler(BaseHandler):
         else:
             self.render('errors/404.html')
 
+
+class CampaignEditHandler(BaseHandler):
+
+    @authenticated
+    def get(self, *args, **kwargs):
+        if len(args) and Campaign.by_uuid(args[0]) is not None:
+            campaign = Campaign.by_uuid(args[0])
+            self.render('campaigns/edit.html', campaign=campaign)
+        else:
+            self.render('errors/404.html')
+
     @authenticated
     def post(self, *args, **kwargs):
         """Update a Campaign object"""
+        if len(args) and Campaign.by_uuid(args[0]) is not None:
+            campaign = Campaign.by_uuid(args[0])
+            try:
 
-        uuid = self.get_argument('uuid', '')
+                if campaign is not None:
+                    campaign.name = self.get_argument('name', '')
+                    campaign.description = self.get_argument('description', '')
+                    campaign.endpoint = self.get_argument('endpoint', '')
 
-        try:
-            campaign = Campaign.by_uuid(uuid)
+                    dbsession.commit()
 
-            if campaign is not None:
-                campaign.name = self.get_argument('name', '')
-                campaign.description = self.get_argument('description', '')
-                campaign.endpoint = self.get_argument('endpoint', '')
+                    self.redirect("/campaigns/manage/%s" % campaign.uuid)
 
-                dbsession.commit()
+            except ValidationError as error:
+                self._render_page(campaign, errors=str(error))
 
-        except ValidationError:
-            logging.exception("Exception while trying to edit Campaign")
+    def _render_page(self, campaign, errors=None):
+        self.render('campaigns/edit.html',
+                    errors=errors,
+                    campaign=campaign,
+                    )
 
 
 class CampaignDeletionHandler(BaseHandler):

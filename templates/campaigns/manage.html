@@ -16,6 +16,11 @@
             <div class="col-md-6">{{ campaign.description }}</div>
             <div class="col-md-6"><b>Endpoint:&nbsp</b>{{ campaign.endpoint }}</div>
         </div>
+        <div class="row">
+            <div class="col-md-2">
+                <a href="/campaigns/edit/{{ campaign.uuid }}" class="btn btn-block btn-info">Edit</a>
+            </div>
+        </div>
 
     </div>
 </div>
