@@ -12,7 +12,7 @@ class CampaignIndexHandler(BaseHandler):
     @authenticated
     def get(self, *args, **kwargs):
         campaigns = Campaign.all()
-        self.render('campaign/index.html', campaigns=campaigns)
+        self.render('campaigns/index.html', campaigns=campaigns)
 
 
 class CampaignCreationHandler(BaseHandler):
@@ -37,7 +37,7 @@ class CampaignCreationHandler(BaseHandler):
 
     def _render_page(self, errors=None):
         current_user = self.get_current_user()
-        self.render('campaign/new.html',
+        self.render('campaigns/new.html',
                     errors=errors,
                     current_user=current_user
                     )
@@ -55,7 +55,7 @@ class CampaignManagementHandler(BaseHandler):
     def get(self, *args, **kwargs):
         if len(args) and Campaign.by_uuid(args[0]) is not None:
             campaign = Campaign.by_uuid(args[0])
-            self.render('campaign/manage.html', campaign=campaign)
+            self.render('campaigns/manage.html', campaign=campaign)
         else:
             self.render('errors/404.html')
 

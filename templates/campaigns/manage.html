@@ -1,0 +1,22 @@
+{% extends "../main.html" %}
+
+{% block title %}{{ campaign.name }}{% end %}
+
+{% block head %}
+<script src="/static/js/pages/campaign/manage.js"></script>
+{% end %}
+
+{% block content %}
+
+<div class="container">
+    <div class="well">
+        <h1>{{ campaign.name }}</h1>
+
+        <div class="row">
+            <div class="col-md-4">{{ campaign.description }}</div>
+            <div class="col-md-4">{{ "Last Updated: " + campaign.updated }}</div>
+        </div>
+    </div>
+</div>
+
+{% end %}
