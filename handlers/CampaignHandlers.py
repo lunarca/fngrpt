@@ -61,9 +61,26 @@ class CampaignManagementHandler(BaseHandler):
 
     @authenticated
     def post(self, *args, **kwargs):
+        """Update a Campaign object"""
+
+        uuid = self.get_argument('uuid', '')
+
+        try:
+            campaign = Campaign.by_uuid(uuid)
+
+            if campaign is not None:
+                campaign.name = self.get_argument('name', '')
+                campaign.description = self.get_argument('description', '')
+                campaign.endpoint = self.get_argument('endpoint', '')
+
+                dbsession.commit()
+
+        except ValidationError:
+            logging.exception("Exception while trying to edit Campaign")
 
 
 class CampaignDeletionHandler(BaseHandler):
 
     @authenticated
     def post(self, *args, **kwargs):
+        pass
