@@ -47,3 +47,23 @@ class CampaignCreationHandler(BaseHandler):
         dbsession.add(campaign)
         dbsession.commit()
         return campaign
+
+
+class CampaignManagementHandler(BaseHandler):
+
+    @authenticated
+    def get(self, *args, **kwargs):
+        if len(args) and Campaign.by_uuid(args[0]) is not None:
+            campaign = Campaign.by_uuid(args[0])
+            self.render('campaign/manage.html', campaign=campaign)
+        else:
+            self.render('errors/404.html')
+
+    @authenticated
+    def post(self, *args, **kwargs):
+
+
+class CampaignDeletionHandler(BaseHandler):
+
+    @authenticated
+    def post(self, *args, **kwargs):
