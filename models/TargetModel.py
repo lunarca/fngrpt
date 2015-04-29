@@ -22,7 +22,7 @@ class Target(DatabaseObject):
 
     # belongs to Campaign
     campaign_id = Column(Integer,
-                         ForeignKey('campaign.id'),
+                         ForeignKey('campaigns.id'),
                          nullable=False
                          )
     campaign = relationship("Campaign", backref=backref("targets", lazy="select"))
