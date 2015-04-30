@@ -13,12 +13,25 @@
         <h1>{{ campaign.name }}</h1>
 
         <div class="row">
-            <div class="col-md-6">{{ campaign.description }}</div>
+            <div class="col-md-6"><footer>{{ campaign.description }}</footer></div>
             <div class="col-md-6"><b>Endpoint:&nbsp</b>{{ campaign.endpoint }}</div>
         </div>
         <div class="row">
-            <div class="col-md-2">
-                <a href="/campaigns/edit/{{ campaign.uuid }}" class="btn btn-block btn-info">Edit</a>
+            <div class="col-md-4">
+                <a href="/campaigns/edit/{{ campaign.uuid }}" class="btn btn-info">
+                    <i class="fa fa-fw fa-edit"></i> Edit
+                </a>
+                <a href="/campaigns/{{ campaign.uuid }}/targets/new" class="btn btn-success">
+                    <i class="fa fa-fw fa-plus"></i> Add Targets
+                </a>
+                <a href="/campaigns/export/{{ campaign.uuid }}" class="btn btn-primary">
+                    <i class="fa fa-fw fa-share-square"></i> Export Targets
+                </a>
+            </div>
+
+            {# Target list #}
+            <div class="col-md-8">
+
             </div>
         </div>
 
