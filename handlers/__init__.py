@@ -64,6 +64,7 @@ app = Application([
     (r'/campaigns/manage/(.*)', CampaignManagementHandler),
     (r'/campaigns/edit/(.*)', CampaignEditHandler),
     (r'/campaigns/delete/(.*)', CampaignDeletionHandler),
+    (r'/connect/campaigns/manage', CampaignManagementWebSocketHandler),
 
     # Catch all 404 page
     (r'(.*)', NotFoundHandler),

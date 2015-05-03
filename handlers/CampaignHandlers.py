@@ -1,5 +1,5 @@
 from models.CampaignModel import Campaign
-from handlers.BaseHandlers import BaseHandler
+from handlers.BaseHandlers import *
 
 from libs.SecurityDecorators import *
 from models import dbsession
@@ -58,6 +58,35 @@ class CampaignManagementHandler(BaseHandler):
             self.render('campaigns/manage.html', campaign=campaign)
         else:
             self.render('errors/404.html')
+
+
+class CampaignManagementWebSocketHandler(BaseWebSocketHandler):
+
+    io_loop = IOLoop.instance()
+
+    @authenticated
+    def open(self):
+        pass
+
+    @authenticated
+    def on_message(self, message):
+        pass
+
+    @authenticated
+    def on_close(self):
+        pass
+
+    def _setup_opcodes(self):
+        self.opcodes = {
+        }
+
+    def send_error(self, title, message):
+        msg = {
+            'opcode': 'error',
+            'title': title,
+            'message': message,
+        }
+        self.io_loop.add_callback(self.write_message, msg)
 
 
 class CampaignEditHandler(BaseHandler):
